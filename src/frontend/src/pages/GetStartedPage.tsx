@@ -44,7 +44,7 @@ type ContactErrors = {
   phone?: string;
 };
 
-type SubmitStatus = "idle" | "loading" | "success" | "error";
+type SubmitStatus = "idle" | "loading" | "error";
 
 const TOTAL_STEPS = 4;
 
@@ -139,10 +139,7 @@ export default function GetStartedPage() {
         utm.utmCampaign,
         utm.utmContent,
       );
-      setStatus("success");
-      const fbq = (window as unknown as { fbq?: (...args: unknown[]) => void })
-        .fbq;
-      fbq?.("track", "Lead");
+      window.location.href = "/thank-you";
     } catch (err) {
       console.error(err);
       setErrorMsg("Something went wrong. Please try again.");
@@ -174,58 +171,22 @@ export default function GetStartedPage() {
 
       <main className="flex-1 flex items-start justify-center px-4 pb-16">
         <div className="w-full max-w-xl">
-          {status !== "success" && (
-            <div className="mb-8">
-              <div className="h-1.5 w-full rounded-full bg-white/10 overflow-hidden">
-                <motion.div
-                  className="h-full bg-[#E53935]"
-                  initial={false}
-                  animate={{ width: `${progressPct}%` }}
-                  transition={{ duration: 0.3 }}
-                />
-              </div>
-              <p className="text-white/40 text-xs mt-2 text-center">
-                Step {step + 1} of {TOTAL_STEPS}
-              </p>
+          <div className="mb-8">
+            <div className="h-1.5 w-full rounded-full bg-white/10 overflow-hidden">
+              <motion.div
+                className="h-full bg-[#E53935]"
+                initial={false}
+                animate={{ width: `${progressPct}%` }}
+                transition={{ duration: 0.3 }}
+              />
             </div>
-          )}
+            <p className="text-white/40 text-xs mt-2 text-center">
+              Step {step + 1} of {TOTAL_STEPS}
+            </p>
+          </div>
 
           <AnimatePresence mode="wait">
-            {status === "success" ? (
-              <motion.div
-                key="success"
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.4 }}
-                data-ocid="get-started.success_state"
-                className="flex flex-col items-center justify-center py-16 px-8 rounded-2xl border border-green-500/30 text-center"
-                style={{ backgroundColor: "#0d1f12" }}
-              >
-                <div className="w-20 h-20 rounded-full bg-green-500/10 border border-green-500/40 flex items-center justify-center mb-6">
-                  <svg
-                    className="w-10 h-10 text-green-400"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth={2.5}
-                    viewBox="0 0 24 24"
-                    aria-hidden="true"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                </div>
-                <h1 className="text-2xl font-bold text-white mb-2">
-                  You're all set!
-                </h1>
-                <p className="text-[#CFCFCF] text-base max-w-sm">
-                  We got your info and we'll reach out within 24 hours to talk
-                  about growing your business.
-                </p>
-              </motion.div>
-            ) : step === 0 ? (
+            {step === 0 ? (
               <motion.div
                 key="step-0"
                 initial={{ opacity: 0, x: 20 }}

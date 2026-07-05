@@ -21,6 +21,7 @@ import FAQPage from "./pages/FAQPage";
 import GetStartedPage from "./pages/GetStartedPage";
 import ServiceAreasPage from "./pages/ServiceAreasPage";
 import ServicesPage from "./pages/ServicesPage";
+import ThankYouPage from "./pages/ThankYouPage";
 
 function MainSite() {
   return (
@@ -56,6 +57,7 @@ export default function App() {
   if (path === "/service-areas") return <ServiceAreasPage />;
   if (path === "/business-growth") return <BusinessGrowthPage />;
   if (path === "/get-started") return <GetStartedPage />;
+  if (path === "/thank-you") return <ThankYouPage />;
 
   return <MainSite />;
 }
