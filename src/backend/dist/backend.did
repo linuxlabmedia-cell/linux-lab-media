@@ -1,0 +1,89 @@
+type SenderType = 
+ variant {
+   team;
+   visitor;
+ };
+type ProjectStatus = 
+ variant {
+   complete;
+   inProgress;
+   pending;
+   review;
+ };
+type ProjectPublic = 
+ record {
+   clientId: principal;
+   createdAt: int;
+   description: text;
+   id: nat;
+   status: ProjectStatus;
+   title: text;
+ };
+type ProjectComment = 
+ record {
+   clientId: principal;
+   commentType: CommentType;
+   content: text;
+   id: nat;
+   postedAt: int;
+   projectId: nat;
+ };
+type ContactSubmission = 
+ record {
+   businessType: text;
+   email: text;
+   id: nat;
+   name: text;
+   phone: text;
+   projectDescription: text;
+   submittedAt: int;
+ };
+type CommentType = 
+ variant {
+   comment;
+   request;
+   review;
+ };
+type ChatSessionPublic = 
+ record {
+   createdAt: int;
+   id: text;
+   isActive: bool;
+   visitorName: text;
+ };
+type ChatMessage = 
+ record {
+   content: text;
+   id: nat;
+   senderType: SenderType;
+   sentAt: int;
+   sessionId: text;
+ };
+service : {
+  __chatMessages: (io: opt nat, count: opt nat) -> (vec ChatMessage) query;
+  __chatSessions: () -> (reserved) query;
+  __chatState: () -> (reserved) query;
+  __contactState: () -> (reserved) query;
+  __contactSubmissions: (io: opt nat, count: opt nat) ->
+   (vec ContactSubmission) query;
+  __portalState: () -> (reserved) query;
+  __projectComments: (io: opt nat, count: opt nat) ->
+   (vec ProjectComment) query;
+  __projects: () -> (reserved) query;
+  addClientComment: (projectId: nat, clientId: principal, commentType:
+   CommentType, content: text) -> (ProjectComment);
+  createChatSession: (visitorName: text) -> (ChatSessionPublic);
+  createProject: (clientId: principal, title: text, description: text,
+   status: ProjectStatus) -> (ProjectPublic);
+  getActiveChatSessions: () -> (vec ChatSessionPublic) query;
+  getChatMessages: (sessionId: text) -> (vec ChatMessage) query;
+  getClientProjects: (clientId: principal) -> (vec ProjectPublic) query;
+  getContactSubmissions: () -> (vec ContactSubmission) query;
+  getProjectComments: (projectId: nat) -> (vec ProjectComment) query;
+  getProjects: () -> (vec ProjectPublic) query;
+  sendChatMessage: (sessionId: text, senderType: SenderType, content:
+   text) -> (ChatMessage);
+  submitContactForm: (name: text, email: text, phone: text, businessType:
+   text, projectDescription: text) -> (ContactSubmission);
+  updateProjectStatus: (projectId: nat, status: ProjectStatus) -> (bool);
+}

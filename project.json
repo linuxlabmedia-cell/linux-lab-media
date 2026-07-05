@@ -1,0 +1,24 @@
+{
+  "overview": "Premium marketing agency website for Linux Lab Media with full SEO optimization, contact form, live chat, and client portal.",
+  "features": [
+    "Advanced local SEO with schema markup and Open Graph tags",
+    "Semantic HTML structure with proper heading hierarchy",
+    "FAQ page with keyword-rich content",
+    "Service area pages for local SEO targeting",
+    "Google Business Profile integration section",
+    "XML sitemap",
+    "Three service sections: Website Design, Social Media Management, Paid Advertising",
+    "Working contact form with backend storage",
+    "Real-time live chat with team dashboard",
+    "Client portal with project status tracking"
+  ],
+  "category": "agency-website",
+  "tags": [
+    "marketing",
+    "agency",
+    "seo",
+    "digital-marketing",
+    "lead-generation"
+  ],
+  "last_updated": "2026-06-13T14:18:29.005Z"
+}

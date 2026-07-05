@@ -1,0 +1,146 @@
+// Version: 4.0.0
+type ChatMessage__307796578 =
+  {
+    content : Text;
+    id : Nat;
+    senderType : SenderType__53866670;
+    sentAt : Int;
+    sessionId : Text
+  };
+type ChatMessage__559859432 =
+  {
+    content : Text;
+    id : Nat;
+    senderType : SenderType__214646598;
+    sentAt : Int;
+    sessionId : Text
+  };
+type ChatSession__1001721782 =
+  {createdAt : Int; id : Text; var isActive : Bool; visitorName : Text};
+type ChatSession__501795303 =
+  {createdAt : Int; id : Text; var isActive : Bool; visitorName : Text};
+type CommentType__361767133 = {#comment; #request; #review};
+type CommentType__973188342 = {#comment; #request; #review};
+type ContactSubmission__681339363 =
+  {
+    businessType : Text;
+    email : Text;
+    id : Nat;
+    name : Text;
+    phone : Text;
+    projectDescription : Text;
+    submittedAt : Int
+  };
+type ContactSubmission__93684224 =
+  {
+    businessType : Text;
+    email : Text;
+    id : Nat;
+    name : Text;
+    phone : Text;
+    projectDescription : Text;
+    submittedAt : Int
+  };
+type List__529703492<T> =
+  {
+    var blockIndex : Nat__1040412405;
+    var blocks : [var [var ?T]];
+    var elementIndex : Nat__1040412405
+  };
+type List__560604548<T> = List__529703492<T>;
+type Nat__1040412405 = Nat__920180692;
+type Nat__920180692 = Nat;
+type NewActor__1026907940 =
+  {
+    chatMessages : List__560604548<ChatMessage__307796578>;
+    chatSessions : List__560604548<ChatSession__1001721782>;
+    chatState : {var nextMessageId : Nat; var nextSessionCounter : Nat};
+    contactState : {var nextContactId : Nat};
+    contactSubmissions : List__560604548<ContactSubmission__681339363>;
+    portalState : {var nextCommentId : Nat; var nextProjectId : Nat};
+    projectComments : List__560604548<ProjectComment__1032367806>;
+    projects : List__560604548<Project__600396036>
+  };
+type NewActor__36916859 = {};
+type OldActor__314393661 = {};
+type OldActor__855635303 = {};
+type ProjectComment__1032367806 =
+  {
+    clientId : Principal;
+    commentType : CommentType__361767133;
+    content : Text;
+    id : Nat;
+    postedAt : Int;
+    projectId : Nat
+  };
+type ProjectComment__408371374 =
+  {
+    clientId : Principal;
+    commentType : CommentType__973188342;
+    content : Text;
+    id : Nat;
+    postedAt : Int;
+    projectId : Nat
+  };
+type ProjectStatus__668066768 = {#complete; #inProgress; #pending; #review};
+type ProjectStatus__670147168 = {#complete; #inProgress; #pending; #review};
+type Project__252145578 =
+  {
+    clientId : Principal;
+    createdAt : Int;
+    description : Text;
+    id : Nat;
+    var status : ProjectStatus__668066768;
+    title : Text
+  };
+type Project__600396036 =
+  {
+    clientId : Principal;
+    createdAt : Int;
+    description : Text;
+    id : Nat;
+    var status : ProjectStatus__670147168;
+    title : Text
+  };
+type SenderType__214646598 = {#team; #visitor};
+type SenderType__53866670 = {#team; #visitor};
+{
+  "v000_initial" : (_old : OldActor__314393661) -> NewActor__36916859;
+  "v001_contact_chat_portal" :
+    (_old : OldActor__855635303) -> NewActor__1026907940
+}
+actor  {
+  stable chatMessages :
+    {
+      var blockIndex : Nat__1040412405;
+      var blocks : [var [var ?ChatMessage__559859432]];
+      var elementIndex : Nat__1040412405
+    };
+  stable chatSessions :
+    {
+      var blockIndex : Nat__1040412405;
+      var blocks : [var [var ?ChatSession__501795303]];
+      var elementIndex : Nat__1040412405
+    };
+  stable chatState : {var nextMessageId : Nat; var nextSessionCounter : Nat};
+  stable contactState : {var nextContactId : Nat};
+  stable contactSubmissions :
+    {
+      var blockIndex : Nat__1040412405;
+      var blocks : [var [var ?ContactSubmission__93684224]];
+      var elementIndex : Nat__1040412405
+    };
+  stable portalState : {var nextCommentId : Nat; var nextProjectId : Nat};
+  stable projectComments :
+    {
+      var blockIndex : Nat__1040412405;
+      var blocks : [var [var ?ProjectComment__408371374]];
+      var elementIndex : Nat__1040412405
+    };
+  stable projects :
+    {
+      var blockIndex : Nat__1040412405;
+      var blocks : [var [var ?Project__252145578]];
+      var elementIndex : Nat__1040412405
+    }
+};
