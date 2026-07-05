@@ -35,6 +35,20 @@ export interface ContactSubmission {
   'email' : string,
   'phone' : string,
 }
+export interface LeadSubmission {
+  'id' : bigint,
+  'name' : string,
+  'email' : string,
+  'phone' : string,
+  'challenge' : string,
+  'businessType' : string,
+  'budgetRange' : string,
+  'utmSource' : string,
+  'utmMedium' : string,
+  'utmCampaign' : string,
+  'utmContent' : string,
+  'submittedAt' : bigint,
+}
 export interface ProjectComment {
   'id' : bigint,
   'clientId' : Principal,
@@ -69,6 +83,11 @@ export interface _SERVICE {
     [[] | [bigint], [] | [bigint]],
     Array<ContactSubmission>
   >,
+  '__leadState' : ActorMethod<[], any>,
+  '__leadSubmissions' : ActorMethod<
+    [[] | [bigint], [] | [bigint]],
+    Array<LeadSubmission>
+  >,
   '__portalState' : ActorMethod<[], any>,
   '__projectComments' : ActorMethod<
     [[] | [bigint], [] | [bigint]],
@@ -88,12 +107,28 @@ export interface _SERVICE {
   'getChatMessages' : ActorMethod<[string], Array<ChatMessage>>,
   'getClientProjects' : ActorMethod<[Principal], Array<ProjectPublic>>,
   'getContactSubmissions' : ActorMethod<[], Array<ContactSubmission>>,
+  'getLeadSubmissions' : ActorMethod<[], Array<LeadSubmission>>,
   'getProjectComments' : ActorMethod<[bigint], Array<ProjectComment>>,
   'getProjects' : ActorMethod<[], Array<ProjectPublic>>,
   'sendChatMessage' : ActorMethod<[string, SenderType, string], ChatMessage>,
   'submitContactForm' : ActorMethod<
     [string, string, string, string, string],
     ContactSubmission
+  >,
+  'submitLeadForm' : ActorMethod<
+    [
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+    ],
+    LeadSubmission
   >,
   'updateProjectStatus' : ActorMethod<[bigint, ProjectStatus], boolean>,
 }

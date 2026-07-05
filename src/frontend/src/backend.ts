@@ -120,6 +120,20 @@ export interface ContactSubmission {
     email: string;
     phone: string;
 }
+export interface LeadSubmission {
+    id: bigint;
+    name: string;
+    email: string;
+    phone: string;
+    challenge: string;
+    businessType: string;
+    budgetRange: string;
+    utmSource: string;
+    utmMedium: string;
+    utmCampaign: string;
+    utmContent: string;
+    submittedAt: bigint;
+}
 export interface ChatMessage {
     id: bigint;
     content: string;
@@ -158,10 +172,12 @@ export interface backendInterface {
     getChatMessages(sessionId: string): Promise<Array<ChatMessage>>;
     getClientProjects(clientId: Principal): Promise<Array<ProjectPublic>>;
     getContactSubmissions(): Promise<Array<ContactSubmission>>;
+    getLeadSubmissions(): Promise<Array<LeadSubmission>>;
     getProjectComments(projectId: bigint): Promise<Array<ProjectComment>>;
     getProjects(): Promise<Array<ProjectPublic>>;
     sendChatMessage(sessionId: string, senderType: SenderType, content: string): Promise<ChatMessage>;
     submitContactForm(name: string, email: string, phone: string, businessType: string, projectDescription: string): Promise<ContactSubmission>;
+    submitLeadForm(name: string, email: string, phone: string, challenge: string, businessType: string, budgetRange: string, utmSource: string, utmMedium: string, utmCampaign: string, utmContent: string): Promise<LeadSubmission>;
     updateProjectStatus(projectId: bigint, status: ProjectStatus): Promise<boolean>;
 }
 import type { ChatMessage as _ChatMessage, CommentType as _CommentType, ProjectComment as _ProjectComment, ProjectPublic as _ProjectPublic, ProjectStatus as _ProjectStatus, SenderType as _SenderType } from "./declarations/backend.did.d.ts";
@@ -377,6 +393,20 @@ export class Backend implements backendInterface {
             return result;
         }
     }
+    async getLeadSubmissions(): Promise<Array<LeadSubmission>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getLeadSubmissions();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getLeadSubmissions();
+            return result;
+        }
+    }
     async getProjectComments(arg0: bigint): Promise<Array<ProjectComment>> {
         if (this.processError) {
             try {
@@ -430,6 +460,20 @@ export class Backend implements backendInterface {
             }
         } else {
             const result = await this.actor.submitContactForm(arg0, arg1, arg2, arg3, arg4);
+            return result;
+        }
+    }
+    async submitLeadForm(arg0: string, arg1: string, arg2: string, arg3: string, arg4: string, arg5: string, arg6: string, arg7: string, arg8: string, arg9: string): Promise<LeadSubmission> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.submitLeadForm(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.submitLeadForm(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
             return result;
         }
     }

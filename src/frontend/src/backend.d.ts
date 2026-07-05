@@ -38,6 +38,20 @@ export interface ContactSubmission {
     email: string;
     phone: string;
 }
+export interface LeadSubmission {
+    id: bigint;
+    name: string;
+    email: string;
+    phone: string;
+    challenge: string;
+    businessType: string;
+    budgetRange: string;
+    utmSource: string;
+    utmMedium: string;
+    utmCampaign: string;
+    utmContent: string;
+    submittedAt: bigint;
+}
 export interface ChatMessage {
     id: bigint;
     content: string;
@@ -68,9 +82,11 @@ export interface backendInterface {
     getChatMessages(sessionId: string): Promise<Array<ChatMessage>>;
     getClientProjects(clientId: Principal): Promise<Array<ProjectPublic>>;
     getContactSubmissions(): Promise<Array<ContactSubmission>>;
+    getLeadSubmissions(): Promise<Array<LeadSubmission>>;
     getProjectComments(projectId: bigint): Promise<Array<ProjectComment>>;
     getProjects(): Promise<Array<ProjectPublic>>;
     sendChatMessage(sessionId: string, senderType: SenderType, content: string): Promise<ChatMessage>;
     submitContactForm(name: string, email: string, phone: string, businessType: string, projectDescription: string): Promise<ContactSubmission>;
+    submitLeadForm(name: string, email: string, phone: string, challenge: string, businessType: string, budgetRange: string, utmSource: string, utmMedium: string, utmCampaign: string, utmContent: string): Promise<LeadSubmission>;
     updateProjectStatus(projectId: bigint, status: ProjectStatus): Promise<boolean>;
 }

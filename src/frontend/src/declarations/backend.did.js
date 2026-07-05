@@ -28,6 +28,20 @@ export const ContactSubmission = IDL.Record({
   'email' : IDL.Text,
   'phone' : IDL.Text,
 });
+export const LeadSubmission = IDL.Record({
+  'id' : IDL.Nat,
+  'name' : IDL.Text,
+  'email' : IDL.Text,
+  'phone' : IDL.Text,
+  'challenge' : IDL.Text,
+  'businessType' : IDL.Text,
+  'budgetRange' : IDL.Text,
+  'utmSource' : IDL.Text,
+  'utmMedium' : IDL.Text,
+  'utmCampaign' : IDL.Text,
+  'utmContent' : IDL.Text,
+  'submittedAt' : IDL.Int,
+});
 export const CommentType = IDL.Variant({
   'review' : IDL.Null,
   'request' : IDL.Null,
@@ -76,6 +90,12 @@ export const idlService = IDL.Service({
       [IDL.Vec(ContactSubmission)],
       ['query'],
     ),
+  '__leadState' : IDL.Func([], [IDL.Reserved], ['query']),
+  '__leadSubmissions' : IDL.Func(
+      [IDL.Opt(IDL.Nat), IDL.Opt(IDL.Nat)],
+      [IDL.Vec(LeadSubmission)],
+      ['query'],
+    ),
   '__portalState' : IDL.Func([], [IDL.Reserved], ['query']),
   '__projectComments' : IDL.Func(
       [IDL.Opt(IDL.Nat), IDL.Opt(IDL.Nat)],
@@ -110,6 +130,7 @@ export const idlService = IDL.Service({
       [IDL.Vec(ContactSubmission)],
       ['query'],
     ),
+  'getLeadSubmissions' : IDL.Func([], [IDL.Vec(LeadSubmission)], ['query']),
   'getProjectComments' : IDL.Func(
       [IDL.Nat],
       [IDL.Vec(ProjectComment)],
@@ -124,6 +145,22 @@ export const idlService = IDL.Service({
   'submitContactForm' : IDL.Func(
       [IDL.Text, IDL.Text, IDL.Text, IDL.Text, IDL.Text],
       [ContactSubmission],
+      [],
+    ),
+  'submitLeadForm' : IDL.Func(
+      [
+        IDL.Text,
+        IDL.Text,
+        IDL.Text,
+        IDL.Text,
+        IDL.Text,
+        IDL.Text,
+        IDL.Text,
+        IDL.Text,
+        IDL.Text,
+        IDL.Text,
+      ],
+      [LeadSubmission],
       [],
     ),
   'updateProjectStatus' : IDL.Func([IDL.Nat, ProjectStatus], [IDL.Bool], []),
@@ -148,6 +185,20 @@ export const idlFactory = ({ IDL }) => {
     'submittedAt' : IDL.Int,
     'email' : IDL.Text,
     'phone' : IDL.Text,
+  });
+  const LeadSubmission = IDL.Record({
+    'id' : IDL.Nat,
+    'name' : IDL.Text,
+    'email' : IDL.Text,
+    'phone' : IDL.Text,
+    'challenge' : IDL.Text,
+    'businessType' : IDL.Text,
+    'budgetRange' : IDL.Text,
+    'utmSource' : IDL.Text,
+    'utmMedium' : IDL.Text,
+    'utmCampaign' : IDL.Text,
+    'utmContent' : IDL.Text,
+    'submittedAt' : IDL.Int,
   });
   const CommentType = IDL.Variant({
     'review' : IDL.Null,
@@ -197,6 +248,12 @@ export const idlFactory = ({ IDL }) => {
         [IDL.Vec(ContactSubmission)],
         ['query'],
       ),
+    '__leadState' : IDL.Func([], [IDL.Reserved], ['query']),
+    '__leadSubmissions' : IDL.Func(
+        [IDL.Opt(IDL.Nat), IDL.Opt(IDL.Nat)],
+        [IDL.Vec(LeadSubmission)],
+        ['query'],
+      ),
     '__portalState' : IDL.Func([], [IDL.Reserved], ['query']),
     '__projectComments' : IDL.Func(
         [IDL.Opt(IDL.Nat), IDL.Opt(IDL.Nat)],
@@ -231,6 +288,7 @@ export const idlFactory = ({ IDL }) => {
         [IDL.Vec(ContactSubmission)],
         ['query'],
       ),
+    'getLeadSubmissions' : IDL.Func([], [IDL.Vec(LeadSubmission)], ['query']),
     'getProjectComments' : IDL.Func(
         [IDL.Nat],
         [IDL.Vec(ProjectComment)],
@@ -245,6 +303,22 @@ export const idlFactory = ({ IDL }) => {
     'submitContactForm' : IDL.Func(
         [IDL.Text, IDL.Text, IDL.Text, IDL.Text, IDL.Text],
         [ContactSubmission],
+        [],
+      ),
+    'submitLeadForm' : IDL.Func(
+        [
+          IDL.Text,
+          IDL.Text,
+          IDL.Text,
+          IDL.Text,
+          IDL.Text,
+          IDL.Text,
+          IDL.Text,
+          IDL.Text,
+          IDL.Text,
+          IDL.Text,
+        ],
+        [LeadSubmission],
         [],
       ),
     'updateProjectStatus' : IDL.Func([IDL.Nat, ProjectStatus], [IDL.Bool], []),

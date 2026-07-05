@@ -18,6 +18,7 @@ import TeamChatPage from "@/pages/TeamChatPage";
 import BusinessGrowthPage from "./pages/BusinessGrowthPage";
 import ContactPage from "./pages/ContactPage";
 import FAQPage from "./pages/FAQPage";
+import GetStartedPage from "./pages/GetStartedPage";
 import ServiceAreasPage from "./pages/ServiceAreasPage";
 import ServicesPage from "./pages/ServicesPage";
 
@@ -54,6 +55,7 @@ export default function App() {
   if (path === "/contact") return <ContactPage />;
   if (path === "/service-areas") return <ServiceAreasPage />;
   if (path === "/business-growth") return <BusinessGrowthPage />;
+  if (path === "/get-started") return <GetStartedPage />;
 
   return <MainSite />;
 }
